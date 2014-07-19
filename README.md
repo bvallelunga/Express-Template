@@ -1,12 +1,17 @@
-# Prequisites
+# Setup Enviroment
 
 ```
+#Install Globals
 npm install -g coffee-script pm2 pm2-web
-```
 
-# Setup [PM2](https://github.com/Unitech/pm2) and [Dashboard](https://github.com/achingbrain/pm2-web)
+# Activate Submodules
+git submodule init
+git submodule update
 
-```
+# Install NPM Libraries
+npm install
+
+# Configure PM2
 pm2 start config.json
 ```
 
