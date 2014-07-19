@@ -18,19 +18,18 @@ module.exports.init = (app, srv)->
             for file in fs.readdirSync path
                filePath = "#{path}/#{file}"
 
-               unless directory is "compless"
-                  if directory is "global"
-                     if file is "external.txt"
-                        for link in fs.readFileSync(filePath, "utf-8").split "\n"
-                           piler.addUrl link
-                     else
-                        piler.addFile filePath
-                  else
-                     if file is "external.txt"
-                        for link in fs.readFileSync(filePath, "utf-8").split "\n"
-                           piler.addUrl directory, link
-                     else
-                        piler.addFile directory, filePath
+               if directory is "global"
+                  if file is "external.txt"
+                     for link in fs.readFileSync(filePath, "utf-8").split "\n"
+                        piler.addUrl link
+                  else if file.indexOf(type) != -1
+                     piler.addFile filePath
+               else
+                  if file is "external.txt"
+                     for link in fs.readFileSync(filePath, "utf-8").split "\n"
+                        piler.addUrl directory, link
+                  else if file.indexOf(type) != -1
+                     piler.addFile directory, filePath
 
 module.exports.express = (req, res, next)->
    req.coffee = pilers.coffee;
