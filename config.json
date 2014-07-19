@@ -6,7 +6,8 @@
       "description":[
          "<demo>"
       ],
-      "default":"/"
+      "default":"/",
+      "port": "80"
    },
    "cookies":{
       "session":{
@@ -40,7 +41,8 @@
          "ignoreWatch":[
             "logs",
             "public",
-            "node_modules"
+            "node_modules",
+            "*.log"
          ],
          "env":{
             "NODE_ENV":"production"
