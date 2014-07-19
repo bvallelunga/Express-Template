@@ -54,28 +54,12 @@
       {
          "name":"dashboard",
          "script":"/usr/local/bin/pm2-web",
-         "args":"['--config=pm2_web.json']",
+         "args":"['--config=dashboard.json']",
          "instances":1,
          "merge_logs":"true",
          "error_file":"logs/dashboard.error",
          "out_file":"logs/dashboard.out",
          "pid_file":"logs/dashboard"
       }
-   ],
-   "deploy":{
-      "production":{
-         "user":"root",
-         "host":"<demo>.com",
-         "ref":"origin/master",
-         "repo":"git@github.com:repo.git",
-         "path":"/root/"
-      },
-      "dev":{
-         "user":"root",
-         "host":"<demo>.com",
-         "ref":"origin/master",
-         "repo":"git@github.com:repo.git",
-         "path":"/home/brian/"
-      }
-   }
+   ]
 }
