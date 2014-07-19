@@ -7,9 +7,9 @@ pilers =
    coffee : piler.createJSManager urlRoot: "coffee"
    less   : piler.createCSSManager urlRoot: "less"
 
-module.exports = (app, srv)->
+module.exports.init = (app)->
     for piler, type in pilers
-      piler.bind app, srv
+      piler.bind app
 
       for directory in fs.readdirSync type
          path = "#{type}/#{directory}"
@@ -27,7 +27,7 @@ module.exports = (app, srv)->
                else
                   piler[type].addFile directory, filePath
 
-   return (req, res, next)->
-      req.cofefee = pilers.coffee;
-      req.less = pilers.less;
-      next();
+module.exports.express = (req, res, next)->
+   req.coffee = pilers.coffee;
+   req.less = pilers.less;
+   next();

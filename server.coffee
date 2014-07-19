@@ -1,11 +1,15 @@
 # Import NPM Modules
 express        = require "express"
-device         = require "express-device"
 slashes        = require "connect-slashes"
+session        = require "express-session"
 ejs            = require "ejs"
 app            = express()
-srv            = require('http').createServer app
-RedisStore     = require("connect-redis") express
+RedisStore     = require("connect-redis") session
+
+# Import Local Modules
+locals         = require "./routes/locals"
+assets         = require "./assets"
+routes         = require "./routes"
 
 # Global Variables
 GLOBAL.async   = require "async"
@@ -15,56 +19,45 @@ GLOBAL.lib     = require "./lib"
 # Initialize Lib
 lib.init.bind(lib, ejs)()
 
-app.configure ->
-   # HTML Engine
-   app.engine "html", ejs.renderFile
+# HTML Engine
+app.engine "html", ejs.renderFile
 
-   # Global Config
-   app.set "views", "views"
-   app.set "view engine", "html"
-   app.set "view options", layout: true
-   app.set "view cache", true
-   app.set "x-powered-by", false
+# Global Config
+app.set "views", "views"
+app.set "view engine", "html"
+app.set "view options", layout: true
+app.set "view cache", true
+app.set "x-powered-by", false
 
-   # Piler Assests
-   app.use require("./public") app, srv
+# Piler Assests
+assets.init app
+app.use assets.express
 
-   # Direct Assests
-   app.use "/favicon", express.static "public/favicons"
-   app.use "/fonts", express.static "/public/fonts"
-   app.use "/img", express.static "/public/images"
+# Direct Assests
+app.use "/favicon", express.static "assets/favicons"
+app.use "/fonts", express.static "assets/fonts"
+app.use "/img", express.static "assets/images"
 
-   # External Addons
-   app.use slashes true
-   app.use device.capture()
+# External Addons
+app.use slashes true
 
+# Logger & Cookie
+app.use session
+   name: config.cookies.session.key
+   secret: config.cookies.session.secret
+   cookie: secure: true
+   resave: false
+   saveUninitialized: true
+   store: new RedisStore
 
-   # Logger & Cookie
-   app.use express.logger "dev"
-   app.use express.compress()
-   app.use express.bodyParser()
-   app.use express.methodOverride()
-   app.use express.cookieParser config.cookies.session.secret
-   app.use express.session
-      key: config.cookies.session.key
-      secret: config.cookies.session.secret
-      store: new RedisStore client: lib.redis
+# Initialize Models
+#app.use lib.models
 
-   # Initialize Models
-   #app.use lib.models
-
-   # Setup Globals
-   app.use require "./routes/locals"
-
-# Production Only
-app.configure 'production', ->
-   # Last Resort Error Handling
-   process.on 'uncaughtException', (exception)->
-      return console.error exception
+# Setup Locals
+app.use locals
 
 # Activate Routes
-require("./routes") app
+routes app
 
-# Start Router
-app.use app.router
-srv.listen config.general.port
+# Start Listening to Port
+app.listen config.general.port

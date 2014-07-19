@@ -12,7 +12,7 @@
    "cookies":{
       "session":{
          "key":"usrs",
-         "secret":""
+         "secret":"asdfasdf"
       }
    },
    "orm":{

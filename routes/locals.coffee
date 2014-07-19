@@ -1,7 +1,6 @@
 module.exports = (req, res, next)->
    # Set Server Root For Non Express Calls
-   req.session.server = req.protocol + "://" + req.host;
-   req.session.save()
+   req.session.server = "#{req.protocol}://#{req.hostname}"
 
    if not config.general.production or not config.random
       config.random = Math.floor (Math.random() * 1000000) + 1
@@ -9,7 +8,7 @@ module.exports = (req, res, next)->
    # Header Config
    res.header 'Server', config.general.company
    res.header 'Access-Control-Allow-Credentials', true
-   res.header 'Access-Control-Allow-Origin', req.host
+   res.header 'Access-Control-Allow-Origin', req.hostname
    res.header 'Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE'
    res.header 'Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept'
 
