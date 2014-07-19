@@ -1,7 +1,7 @@
 # Setup Enviroment
 
-```
-#Install Globals
+``` bash
+# Install Globals
 npm install -g coffee-script pm2 pm2-web
 
 # Activate Submodules
