@@ -58,7 +58,7 @@ app.use session
    store: new RedisStore
 
 # Initialize Models
-#app.use lib.models
+app.use lib.models
 
 # Setup Locals
 app.use locals

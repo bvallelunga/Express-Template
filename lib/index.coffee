@@ -1,5 +1,6 @@
 module.exports =
-   core : require './core'
-   init : (ejs)->
+   core     : require './core'
+   models   : require './models'
+   init     : (ejs)->
       @core.helpers()
       @core.filters ejs
