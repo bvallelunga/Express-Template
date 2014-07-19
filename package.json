@@ -1,0 +1,31 @@
+{
+   "name":"<demo>",
+   "version":"0.0.1",
+   "private":true,
+   "dependencies":{
+      "coffee-script":"1.7.1",
+      "express":"3.5.1",
+      "express-device":"0.3.7",
+      "express-error":"0.0.7",
+      "connect-slashes":"0.0.10",
+      "ejs":"0.8.4",
+      "less":"1.5.1",
+      "piler":"0.5.0",
+      "async":"0.2.9",
+      "bluebird":"2.2.2",
+      "crypto":"0.0.3",
+      "generate-key":"0.0.6",
+      "orm":"2.1.4",
+      "orm-timestamps":"0.2.1",
+      "orm-random":"0.0.1",
+      "mysql":"2.1.1",
+      "redis":"0.8.4",
+      "connect-redis":"1.4.5",
+      "stripe":"2.1.0-rc3",
+      "jquery.payment":"0.0.1",
+      "geoip-lite":"1.1.1"
+   },
+   "devDependencies":{
+      "express-debug":"*"
+   }
+}
