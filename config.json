@@ -35,16 +35,16 @@
    "apps":[
       {
          "name":"server",
-         "script":"server.coffee",
+         "script":"./server.coffee",
          "instances":1,
-         "watch":true,
-         "ignoreWatch":[
-            "logs",
-            "public",
-            "node_modules"
+         "watch": [
+            "lib",
+            "views",
+            "routes",
+            "server.coffee"
          ],
          "env":{
-            "NODE_ENV":"production"
+            "NODE_ENV":"development"
          },
          "merge_logs":"true",
          "error_file":"logs/server.error",

@@ -3,9 +3,11 @@
    "version":"0.0.1",
    "private":true,
    "dependencies":{
-      "express":"4.6.1",
+      "express":"4.6.0",
       "express-session": "1.6.5",
       "connect-slashes":"1.2.0",
+      "body-parser": "1.4.3",
+      "compression": "1.0.8",
       "ejs":"1.0.0",
       "less":"1.7.3",
       "piler":"0.5.1",

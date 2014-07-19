@@ -3,13 +3,15 @@ express        = require "express"
 slashes        = require "connect-slashes"
 session        = require "express-session"
 ejs            = require "ejs"
+bodyParser     = require "body-parser"
 app            = express()
+srv            = require("http").createServer(app);
 RedisStore     = require("connect-redis") session
 
 # Import Local Modules
+routes         = require "./routes"
 locals         = require "./routes/locals"
 assets         = require "./assets"
-routes         = require "./routes"
 
 # Global Variables
 GLOBAL.async   = require "async"
@@ -22,21 +24,26 @@ lib.init.bind(lib, ejs)()
 # HTML Engine
 app.engine "html", ejs.renderFile
 
-# Global Config
-app.set "views", "views"
+# Express Config
+app.set "views", "#{__dirname}/views"
 app.set "view engine", "html"
 app.set "view options", layout: true
 app.set "view cache", true
 app.set "x-powered-by", false
 
+# Express Settings
+app.use require('compression')()
+app.use bodyParser.urlencoded extended: true
+app.use bodyParser.json()
+
 # Piler Assests
-assets.init app
+assets.init app, srv
 app.use assets.express
 
 # Direct Assests
-app.use "/favicon", express.static "assets/favicons"
-app.use "/fonts", express.static "assets/fonts"
-app.use "/img", express.static "assets/images"
+app.use "/favicon", express.static "#{__dirname}/assets/favicons"
+app.use "/fonts", express.static "#{__dirname}/assets/fonts"
+app.use "/img", express.static "#{__dirname}/assets/images"
 
 # External Addons
 app.use slashes true
@@ -60,4 +67,4 @@ app.use locals
 routes app
 
 # Start Listening to Port
-app.listen config.general.port
+srv.listen config.general.port
