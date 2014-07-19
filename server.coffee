@@ -13,7 +13,7 @@ GLOBAL.config  = require "./config"
 GLOBAL.lib     = require "./lib"
 
 # Initialize Lib
-lib.init ejs
+lib.init.bind(lib, ejs)()
 
 app.configure ->
    # HTML Engine
@@ -51,16 +51,16 @@ app.configure ->
       store: new RedisStore client: lib.redis
 
    # Initialize Models
-   app.use lib.models
+   #app.use lib.models
 
    # Setup Globals
-   app.use require "./routes/globals"
+   app.use require "./routes/locals"
 
 # Production Only
 app.configure 'production', ->
    # Last Resort Error Handling
    process.on 'uncaughtException', (exception)->
-     return console.error exception
+      return console.error exception
 
 # Activate Routes
 require("./routes") app

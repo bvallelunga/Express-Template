@@ -3,7 +3,6 @@
    "version":"0.0.1",
    "private":true,
    "dependencies":{
-      "coffee-script":"1.7.1",
       "express":"3.5.1",
       "express-device":"0.3.7",
       "express-error":"0.0.7",
@@ -21,8 +20,5 @@
       "mysql":"2.1.1",
       "redis":"0.8.4",
       "connect-redis":"1.4.5",
-      "stripe":"2.1.0-rc3",
-      "jquery.payment":"0.0.1",
-      "geoip-lite":"1.1.1"
    }
 }

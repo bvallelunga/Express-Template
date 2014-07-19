@@ -27,8 +27,7 @@ module.exports = (app, srv)->
                else
                   piler[type].addFile directory, filePath
 
-   return = (req, res, next)->
+   return (req, res, next)->
       req.cofefee = pilers.coffee;
       req.less = pilers.less;
       next();
-}
