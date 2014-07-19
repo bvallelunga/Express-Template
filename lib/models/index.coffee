@@ -23,6 +23,9 @@ module.exports = orm.express config.orm,
             time: true
          now: -> return new Date()
 
+      # Define Models
+      # models.users = require("./users") db, models
+
       # Init
       unless initialized
          async.series [
